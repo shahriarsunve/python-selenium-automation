@@ -29,4 +29,4 @@ print('Test case passed')
 # Verify an element present:
 driver.find_element(By.XPATH, "//*[text()='Popular filters']")
 
-
+driver.quit()
