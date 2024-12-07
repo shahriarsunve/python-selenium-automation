@@ -2,6 +2,10 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
+SEARCH_FIELD = (By.ID, 'search')
+SEARCH_BTN = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
+CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
+
 
 @given('Open target main page')
 def open_main(context):
@@ -10,14 +14,14 @@ def open_main(context):
 
 @when('Search for {product}')
 def search_product(context, product):
-    context.driver.find_element(By.ID, 'search').send_keys(product)
-    context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
-    sleep(5)
+    context.driver.find_element(*SEARCH_FIELD).send_keys(product)
+    context.driver.find_element(*SEARCH_BTN).click()
+    sleep(10)
 
 
 @when('Click on Cart icon')
 def click_cart(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='@web/CartLink']").click()
+    context.driver.find_element(*CART_ICON).click()
 
 
 @then('Verify at least 1 header link is shown')
