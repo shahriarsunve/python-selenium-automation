@@ -1,7 +1,7 @@
+from time import sleep
+
 from selenium.webdriver.common.by import By
 from behave import given, when, then
-
-CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
 
 
 @given('Open target main page')
@@ -16,7 +16,7 @@ def search_product(context, product):
 
 @when('Click on Cart icon')
 def click_cart(context):
-    context.driver.find_element(*CART_ICON).click()
+    context.app.header.click_cart()
 
 
 @then('Verify at least 1 header link is shown')
@@ -24,6 +24,14 @@ def verify_header_links(context):
     el = context.driver.find_element(By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
     print('\nFind element:')
     print(el)
+    # StaleElRefException:
+    # context.driver.refresh()
+    # sleep(5)
+    # el = context.driver.find_element(By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
+    # print('\nAfter REFRESH, find element:')
+    # print(el)
+    # el.click()
+    # sleep(3)
 
 
 @then('Verify {expected_amount} header links are shown')
