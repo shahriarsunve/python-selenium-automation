@@ -12,15 +12,6 @@ PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
 PRODUCT_IMG = (By.CSS_SELECTOR, 'img')
 
 
-@then('Verify search results shown for {product}')
-def verify_search_results(context, product):
-    context.app.search_results_page.verify_search_results(product)
-
-
-@then('Verify search term {product} in URL')
-def verify_search_url(context, product):
-    context.app.search_results_page.verify_search_url(product)
-
 
 @when('Click on Add to Cart button')
 def click_add_to_cart(context):
@@ -42,6 +33,11 @@ def side_nav_click_add_to_cart(context):
     sleep(4)
 
 
+@when('Hover favorites icon')
+def hover_favorites_icon(context):
+    context.app.search_results_page.hover_favorites_icon()
+
+
 @then('Verify that every product has a name and an image')
 def verify_products_name_img(context):
     # To see ALL listings (comment out if you only check top ones):
@@ -59,3 +55,18 @@ def verify_products_name_img(context):
         assert title != '', 'Product title not shown'
         # print(title)
         product.find_element(*PRODUCT_IMG)
+
+
+@then('Verify search results shown for {product}')
+def verify_search_results(context, product):
+    context.app.search_results_page.verify_search_results(product)
+
+
+@then('Verify search term {product} in URL')
+def verify_search_url(context, product):
+    context.app.search_results_page.verify_search_url(product)
+
+
+@then('Favorites tooltip is shown')
+def verify_favorites_tooltip(context):
+    context.app.search_results_page.verify_fav_tooltip()
